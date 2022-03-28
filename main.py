@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 import random
-import string, time
+import string
 import argparse
-from bs4 import BeautifulSoup
 import requests
-from requests.adapters import HTTPAdapter
-import rich
 from rich import print
-from urllib3.util.retry import Retry
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--codigin", help="codigin", dest="codigin", type=str, required=True)
