@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import time
 import random
 import string
 import argparse
@@ -8,9 +9,10 @@ from rich import print
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--codigin", help="codigin", dest="codigin", type=str, required=True)
+parser.add_argument("-t", "--token", help="access token", dest="token", type=str, required=True )
 args = parser.parse_args()
 Inic_codigin = str(args.codigin)
-
+FF_Token = str(args.token)
 
 def gerador_codingin():
 
@@ -25,7 +27,7 @@ def gerador_codingin():
 
 def reques():
     
-    access_token = "6dd3ee416aea38f2b9daeb9dde4c2b9894a63aa56f1eb2fed7748c95625d7853" 
+    access_token = FF_Token
     codigin = "{}{}{}".format('"', gerador_codingin(),'"')
     paylod = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:94.0) Gecko/20100101 Firefox/94.0",
@@ -34,13 +36,17 @@ def reques():
     "Access-Token": access_token,
     "Origin": "https://reward.ff.garena.com",
     }
+    
     data_json = {"serialno": codigin}
 
     url_google_login = "https://prod-api.reward.ff.garena.com/redemption/api/game/ff/multiple/redeem/"
+
     session = requests.Session()
-    google = session.post(url_google_login, headers=paylod, json=data_json)
+
+    google = session.post(url_google_login, headers=paylod, json=data_json, verify=True)
     soup = (google.text)
     
+
     
     return soup
 
@@ -48,10 +54,43 @@ def reques():
 def validacao():
     while "error_invalid_serialno" in reques():
         print ("[red][-] Injetando Codigin:[/red] {}[red][-][/red]".format(gerador_codingin()))
+        time.sleep(0.5)   
+    
     if "error_too_many_requests" in reques():
         print ("[yellow][!] Muitas Tentativas [!][/yellow]")
-    elif "token" in reques():
+    if "expired" in reques():
         print("[yellow][!] Token Expirado [!][/yellow]")
+    
+    if "error_invalid_token" in reques():
+        print("[yellow][!] Token Invalido [!][/yellow]", )
     else:
         print ("[green][+] Codigin Encontrado:[/green] {}[green][+][/green]".format(gerador_codingin()))
+        print (reques())
+
+def logo():
+                                                                                                                                                               
+    logo_ascci =  """[green]
+##############################################################################################################################################################
+#      _____           _____         _____    ____  _____   ______           ____      ______         _____   _________________       _____         _____    #
+#  ___|\    \     ____|\    \    ___|\    \  |    ||\    \ |\     \         |    | ___|\     \    ___|\    \ /                 \ ____|\    \    ___|\    \   #
+# /    /\    \   /     /\    \  |    |\    \ |    | \\    \| \     \        |    ||     \     \  /    /\    \\______     ______//     /\    \  |    |\    \  #
+#|    |  |    | /     /  \    \ |    | |    ||    |  \|    \  \     |       |    ||     ,_____/||    |  |    |  \( /    /  )/  /     /  \    \ |    | |    | #
+#|    |  |____||     |    |    ||    | |    ||    |   |     \  |    | ____  |    ||     \--'\_|/|    |  |____|   ' |   |   '  |     |    |    ||    |/____/  #
+#|    |   ____ |     |    |    ||    | |    ||    |   |      \ |    ||    | |    ||     /___/|  |    |   ____      |   |      |     |    |    ||    |\    \  #
+#|    |  |    ||\     \  /    /||    | |    ||    |   |    |\ \|    ||    | |    ||     \____|\ |    |  |    |    /   //      |\     \  /    /||    | |    | #
+#|\ ___\/    /|| \_____\/____/ ||____|/____/||____|   |____||\_____/||\____\|____||____ '     /||\ ___\/    /|   /___//       | \_____\/____/ ||____| |____| #
+#| |   /____/ | \ |    ||    | /|    /    | ||    |   |    |/ \|   ||| |    |    ||    /_____/ || |   /____/ |  |`   |         \ |    ||    | /|    | |    | #
+# \|___|    | /  \|____||____|/ |____|____|/ |____|   |____|   |___|/ \|____|____||____|     | / \|___|    | /  |____|          \|____||____|/ |____| |____| #
+#   \( |____|/      \(    )/      \(    )/     \(       \(       )/      \(   )/    \( |_____|/    \( |____|/     \(               \(    )/      \(     )/   #
+#    '   )/          '    '        '    '       '        '       '        '   '      '    )/        '   )/         '                '    '        '     '    #
+#        '                                                                                '             '                                 By: Dennys_SAS     #                      
+##############################################################################################################################################################      
+[/green]"""
+
+
+    print (logo_ascci)
+
+
+
+logo()
 validacao()
