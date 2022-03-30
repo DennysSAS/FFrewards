@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
+from operator import ge
 import time
 import random
 import string
 import argparse
 import requests
 from rich import print
+import urllib3
 
+proxies = {
+    "http":"http://127.0.0.1:8181",
+    "https":"http://127.0.0.1:8181",
+    }
 
 parser = argparse.ArgumentParser()
 parser.add_argument("-c", "--codigin", help="codigin", dest="codigin", type=str, required=True)
@@ -20,7 +26,7 @@ def gerador_codingin():
 
     b = ''.join(random.choice(string.digits) for _ in range(1))
 
-    c = ''.join(random.choice(string.ascii_uppercase) for _ in range(5))
+    c = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
 
     return "{}{}{}{}".format(Inic_codigin, a, b, c)
 
@@ -28,7 +34,7 @@ def gerador_codingin():
 def reques():
     erro = 1
     access_token = FF_Token
-    codigin = "{}{}{}".format('"', gerador_codingin(),'"')
+    codigin = gerador_codingin()
     paylod = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:94.0) Gecko/20100101 Firefox/94.0",
     "Cookie": "_ga=GA1.2.1580628210.1648270858; _gid=GA1.2.887630064.1648270858; apple_state_key=ff876a66acc115ecb16c2a644eab852a; token_session=efe81d9e7bbef6b7c36e6a89d6bc9100b549d5fdb479b633cc3544f5cd0c372b910fd334c10b28af4d4d8e745f9d5504",
@@ -48,7 +54,7 @@ def reques():
         return soup 
     
     except requests.exceptions.SSLError as err:
-        google = session.post(url_google_login, headers=paylod, json=data_json, verify=True)
+        google = session.post(url_google_login, headers=paylod, json=data_json, verify=False)
         soup = (google.text)
         return soup 
     
