@@ -20,13 +20,13 @@ def gerador_codingin():
 
     b = ''.join(random.choice(string.digits) for _ in range(1))
 
-    c = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
+    c = ''.join(random.choice(string.ascii_uppercase) for _ in range(5))
 
     return "{}{}{}{}".format(Inic_codigin, a, b, c)
 
 
 def reques():
-    
+    erro = 1
     access_token = FF_Token
     codigin = "{}{}{}".format('"', gerador_codingin(),'"')
     paylod = {
@@ -42,20 +42,28 @@ def reques():
     url_google_login = "https://prod-api.reward.ff.garena.com/redemption/api/game/ff/multiple/redeem/"
 
     session = requests.Session()
-
-    google = session.post(url_google_login, headers=paylod, json=data_json, verify=True)
-    soup = (google.text)
+    try:
+        google = session.post(url_google_login, headers=paylod, json=data_json, verify=True)
+        soup = (google.text)
+        return soup 
+    
+    except requests.exceptions.SSLError as err:
+        google = session.post(url_google_login, headers=paylod, json=data_json, verify=True)
+        soup = (google.text)
+        return soup 
     
 
+   
     
-    return soup
 
 
 def validacao():
-    while "error_invalid_serialno" in reques():
-        print ("[red][-] Injetando Codigin:[/red] {}[red][-][/red]".format(gerador_codingin()))
-        time.sleep(0.5)   
-    
+    def loop():
+        while "error_invalid_serialno" in reques():
+            print ("[red][-] Injetando Codigin:[/red] {}[red][-][/red]".format(gerador_codingin()))
+            time.sleep(0.5)   
+    loop()
+   
     if "error_too_many_requests" in reques():
         print ("[yellow][!] Muitas Tentativas [!][/yellow]")
     if "expired" in reques():
@@ -63,10 +71,11 @@ def validacao():
     
     if "error_invalid_token" in reques():
         print("[yellow][!] Token Invalido [!][/yellow]", )
-    else:
+    if "Success" in reques():
         print ("[green][+] Codigin Encontrado:[/green] {}[green][+][/green]".format(gerador_codingin()))
         print (reques())
-
+    else:
+        raise SystemExit
 def logo():
                                                                                                                                                                
     logo_ascci =  """[green]
