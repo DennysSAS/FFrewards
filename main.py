@@ -1,12 +1,11 @@
 #!/usr/bin/env python3
-from operator import ge
 import time
 import random
 import string
 import argparse
 import requests
 from rich import print
-import urllib3
+
 
 proxies = {
     "http":"http://127.0.0.1:8181",
@@ -19,14 +18,19 @@ parser.add_argument("-t", "--token", help="access token", dest="token", type=str
 args = parser.parse_args()
 Inic_codigin = str(args.codigin)
 FF_Token = str(args.token)
+token_tm = len(FF_Token)
+tm_final = 12 - token_tm - 2
 
 def gerador_codingin():
 
     a = ''.join(random.choice(string.ascii_uppercase) for _ in range(1))
-
+    tm_a = len(a)
+    
     b = ''.join(random.choice(string.digits) for _ in range(1))
-
-    c = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(5))
+    tm_b = len(b)
+    
+    tm = 12 - token_tm - tm_a - tm_b
+    c = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(7))
 
     return "{}{}{}{}".format(Inic_codigin, a, b, c)
 
@@ -64,19 +68,23 @@ def reques():
 
 
 def validacao():
-    def loop():
-        while "error_invalid_serialno" in reques():
-            print ("[red][-] Injetando Codigin:[/red] {}[red][-][/red]".format(gerador_codingin()))
-            time.sleep(0.5)   
-    loop()
+    
+    while "error_invalid_serialno" in reques():
+        print ("[red][-] Injetando Codigin:[/red] {}[red][-][/red]".format(gerador_codingin()), end="\r", flush=True)
+        time.sleep(0.1)
+             
+    
    
     if "error_too_many_requests" in reques():
         print ("[yellow][!] Muitas Tentativas [!][/yellow]")
+        raise SystemExit
+    
     if "expired" in reques():
         print("[yellow][!] Token Expirado [!][/yellow]")
     
     if "error_invalid_token" in reques():
         print("[yellow][!] Token Invalido [!][/yellow]", )
+        raise SystemExit
     if "Success" in reques():
         print ("[green][+] Codigin Encontrado:[/green] {}[green][+][/green]".format(gerador_codingin()))
         print (reques())
