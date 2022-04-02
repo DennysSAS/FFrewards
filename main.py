@@ -109,8 +109,41 @@ def logo():
 @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@#G@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 [/green]"""
 
+    logo_ascci_2 ="""[red]
+...................................................^^^:.............................................
+..                                  .            .^!????!^.                                       ..
+..                               :^:.  .::^^~!?YPPPY?~:.                                          ..
+..                           .:~!~^^~7J5PPGGGPP5?~.                                               ..
+..                       ..^!?JJJJYPGGGGPP5J7^....:::..   .                                       ..
+..                    :~?JYPGP5PPPGPPP5J?!~~!7?J55PGPJ?!!7777!~:..                                ..
+..                  :!YPGGGPPPPPP55YJ?77?JYPGGGGGPPPPPPPGGGPPP5YJ?!^.                             ..
+..               .:75PGPP55555PPPP55Y55GGGGPP5555555555PP555PPPPPP5Y!.                            ..
+..             .~?5PPP555PPPGGPPP555555YYYY55555555555555555555PPPPPY?!~^:.          ..:^^^:.     ..
+..           .^?PGGGPPGGGPPYJ?!~~^^::::::^!?YPGGGGGGGGGGGGGPP555555PPPPP5YYJ?777777777!!!!^..     ..
+..         .:7PGGPPP55YJ7~^:..     .^~7?JY5PPP5YJ?77777??JY5PGGGPP5555PPPP55PGPP5YYJ!^::..        ..
+..          .^~~^^^^::..       .~7J5PPGGGG5?!^:....    ....:~7JYPPGGGGGGGG5YJ?~::::.              ..
+..                          .~?5PGGPPGGPY~..                  ..:^!77?????77!^.                   ..
+..                        :75PGPP55PGPY~                                                          ..
+..                      :7PGGP555PPPY!:     ..:^~~~~~~~^^:..                                      ..
+..                     !5PGP555PPG5!.   .^7J5YYYYY55PPPPGGP5J?!^..                .....           ..
+..                   ^75GP55555PGG5~ .^?5GPJ!^.     ..:~7J5GGGGP5?7!!!~^::::::^~~~^:..            ..
+..                  .7PGPP555PPP57::~YGGGY!.              :7YPGPPGGGGGP555PPGPY7~:.               ..
+..                 :!YGG5555PGP?^..?PPGGPY?:                ^YPPP55555PPGGG5?~.                   ..
+..                 ^J5GP555PPPY^ .!5GP55PGP?~.              :7YGG55555PPPP?^.                     ..
+..                 ~YPPP555GGY7: :75GP555PPG5!.             :7YGG555PPGPJ~.                       ..
+..                 ~YPGP555GGY!:  :7YPGGGGGPJ^              ^J5PP55PPPJ~.                         ..
+..                 ^?5GP555GGY7:   .:~7?JJ7~:              .!PGP55PG57:                           ..
+..                 .^?GGP55PPPJ^       ....               :?5GG55PPP?:                            ..
+..                   ^?5GP55PGP7:                       .^?PGP55PG5?^                             ..
+..                     ~YPGPPPPPY~                    .^75GPPPPP5Y?~^^::..                        ..
+..                       ^?5GGGGGPJ!:.            ..^7JPGGPPPGPPJ7~~^^:.                          ..
+..                         :~7Y5PGGGGY?7!~~~~~~!7JYPGGPPP55Y?!^:..                                ..
+..                             :^!?JY5PPPPPPPPPPPP5Y?!~^::.                                       ..
+......................................::^^^^^^^^::..................................................
+[/red]"""
 
-    print (logo_ascci)
+
+    print (random.choice([logo_ascci,logo_ascci_2]))
 
 
 
