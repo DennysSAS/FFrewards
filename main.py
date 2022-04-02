@@ -6,6 +6,7 @@ import argparse
 import requests
 from rich import print
 
+requests.packages.urllib3.disable_warnings() # Aviso Desabilitado
 
 proxies = {
     "http":"http://127.0.0.1:8181",
